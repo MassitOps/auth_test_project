@@ -14,11 +14,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ asset('bootstrap.min.js') }}"></script>
-
-    {{-- <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}"> --}}
-
 </head>
-<body style="background: url('{{ asset('images/bg.jpg') }}') no-repeat center center fixed; background-size: cover;">
+<body">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
@@ -33,6 +30,48 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 fw-bold text-white" href="{{ url('/') }}"> Accueil </a>
+                        </li>
+                        <!-- Authentication Links -->
+                        @guest
+                                @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link fs-5 fw-bold text-white" href="{{ route('login') }}"> Se connecter </a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link fs-5 fw-bold text-white" href="{{ route('register') }}"> S'inscrire </a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link fs-5 fw-bold text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item fs-6 fw-bold" href="{{ route('auth.profile.index') }}">
+                                        Mon Profil
+                                    </a>
+                                    <a class="dropdown-item fs-6 fw-bold" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                        Se déconnecter
+                                    </a>
+                            
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
