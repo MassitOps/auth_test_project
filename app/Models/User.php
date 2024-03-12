@@ -12,6 +12,7 @@ class User extends AuthenticatableUser implements Authenticatable
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'id',
         'firstname',
         'lastname',
         'email',

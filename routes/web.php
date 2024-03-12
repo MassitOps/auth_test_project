@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return redirect('/home');
+});
+
+Route::get('/home', function () {
+    if(!Auth::check()) {
+        return view('home');
+    } else {
+        $users = User::all();
+        return view('home', ['users' => $users]);
+    }
 });
 
 Auth::routes();

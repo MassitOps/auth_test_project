@@ -36,11 +36,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         
-        $phonenumber = '00229' + $data['firstnums'] + $data['lastnums'];
+        $phonenumber = '00229' . $data['firstnums'] . $data['lastnums'];
 
         return User::create([
             'lastname' => $data['lastname'],
-            'firstname' => $data['lastname'],
+            'firstname' => $data['firstname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'job' => $data['job'],
